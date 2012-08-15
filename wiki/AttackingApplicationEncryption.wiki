@@ -30,8 +30,8 @@ http://erlend.oftedal.no/blog/beast/
 1) Find out about how many bytes precede our input in the CT - look for where the repeated blocks start
 2) Manipulate input so that the LAST block of our repeated input lines up with the block boundary. Do this by starting with large input and removing characters until you LOSE a repeated block. Then REMOVE the last character (byte) from the input so that the first byte of ciphertext is picked up within our last block eg:
 	AAAAAAAAAAAAAAAA (we have a full block of our repeated input)
-	AAAAAAAAAAAAAAA? (we remove one character and ‘pick up’ the last character or 
-      unknown CT)
+	AAAAAAAAAAAAAAA? (we remove one character and ‘pick up’ the last character or unknown CT)
+
 3) Perform a dictionary attack to find ? using a previous repeated block. We know we have found x when the ciphertext in the 2 blocks matches eg:
 Suppose the last block that contains our input (AAAAAAAAAAAAAAA? where ? is unknown) encrypts as:
 AAAAAAAAAAAAAAA? ==> JDJDJEIDLELEMSE32
@@ -85,8 +85,8 @@ If you have NO knowledge on what the original plaintext was:
     the most common characters according to the characte frequency you expect (e.g. English  
     has the highest frequency letter as ‘e’, so look for the most ‘e’s if you think the PT was 
     English)
-    E.G. Suppose you have 5 16 byte blocks of unknown ciphertext encrypted with the same  
-            part of the keystream
+    E.G. Suppose you have 5 16 byte blocks of unknown ciphertext encrypted with the same part of the keystream
+
     	-Byte 1 of each block will have been encrypted (XOR’d) with byte 1 of the key
     	-Brute force byte 1 by XORing the CT with all possible values for that byte - look for 
             highest freqeuncy of the letter 'e' across your 5 bytes at this position
@@ -116,6 +116,7 @@ Vulnerable to the chosen boundary attack described for ECB.
 http://namnham.blogspot.com/2010/03/codegate-2010-ctf-challenge-8-cbc-mode.html
 -Very interesting attack method although there is one confusing part of the article:
   Look at this section from the article:
+
 >>> iv, cipher = get_cookie('1234567890123456')
 
 >>> cipher1 = cipher[:32] + iv + cipher[:16]
