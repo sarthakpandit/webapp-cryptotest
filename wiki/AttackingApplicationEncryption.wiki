@@ -30,9 +30,9 @@ http://erlend.oftedal.no/blog/beast/
 1) Find out about how many bytes precede our input in the CT - look for where the repeated blocks start
 2) Manipulate input so that the LAST block of our repeated input lines up with the block boundary. Do this by starting with large input and removing characters until you LOSE a repeated block. Then REMOVE the last character (byte) from the input so that the first byte of ciphertext is picked up within our last block eg:
 
-	AAAAAAAAAAAAAAAA (we have a full block of our repeated input)
+AAAAAAAAAAAAAAAA (we have a full block of our repeated input)
 
-	AAAAAAAAAAAAAAA? (we remove one character and ‘pick up’ the last character or unknown CT)
+AAAAAAAAAAAAAAA? (we remove one character and ‘pick up’ the last character or unknown CT)
 
 3) Perform a dictionary attack to find ? using a previous repeated block. We know we have found x when the ciphertext in the 2 blocks matches eg:
 
