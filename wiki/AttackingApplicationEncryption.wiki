@@ -29,16 +29,25 @@ If it is ECB, we can attack it in multiple ways
 http://erlend.oftedal.no/blog/beast/
 1) Find out about how many bytes precede our input in the CT - look for where the repeated blocks start
 2) Manipulate input so that the LAST block of our repeated input lines up with the block boundary. Do this by starting with large input and removing characters until you LOSE a repeated block. Then REMOVE the last character (byte) from the input so that the first byte of ciphertext is picked up within our last block eg:
+
 	AAAAAAAAAAAAAAAA (we have a full block of our repeated input)
+
 	AAAAAAAAAAAAAAA? (we remove one character and ‘pick up’ the last character or unknown CT)
 
 3) Perform a dictionary attack to find ? using a previous repeated block. We know we have found x when the ciphertext in the 2 blocks matches eg:
+
 Suppose the last block that contains our input (AAAAAAAAAAAAAAA? where ? is unknown) encrypts as:
+
 AAAAAAAAAAAAAAA? ==> JDJDJEIDLELEMSE32
+
 Then we can use one of the blocks where we control all the characters to brute force ?:
+
 AAAAAAAAAAAAAAAa ==> ZHEKJDKDLENAKEJJ3
+
 AAAAAAAAAAAAAAAb ==> DKMDJOWEKLJDSKNN1
+
 AAAAAAAAAAAAAAAc ==> JDJDJEIDLELEMSE32 *** MATCH
+
 4) To find the next character, remove another character from the last block and modify your block where you control all the characters so that its second from last character is the one found in step 3. Brute force the last character.
 5) Repeat. You can do this for long CT by using large inputs.
 
