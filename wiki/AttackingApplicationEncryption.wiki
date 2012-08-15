@@ -27,6 +27,7 @@ If it is ECB, we can attack it in multiple ways
 
 ===Attack - Chosen Boundary Attack - Also works on CBC with static IV===
 http://erlend.oftedal.no/blog/beast/
+
 1) Find out about how many bytes precede our input in the CT - look for where the repeated blocks start
 
 2) Manipulate input so that the LAST block of our repeated input lines up with the block boundary. Do this by starting with large input and removing characters until you LOSE a repeated block. Then REMOVE the last character (byte) from the input so that the first byte of ciphertext is picked up within our last block eg:
