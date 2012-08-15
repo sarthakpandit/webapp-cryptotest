@@ -110,8 +110,11 @@ http://namnham.blogspot.com/2010/03/codegate-2010-ctf-challenge-8-cbc-mode.html
 -Very interesting attack method although there is one confusing part of the article:
   Look at this section from the article:
 >>> iv, cipher = get_cookie('1234567890123456')
+
 >>> cipher1 = cipher[:32] + iv + cipher[:16]
+
 >>> username, role = get_message(iv, cipher1)
+
 'Welcome back, 1234567890123456! Your role is: E\x9bpY?\xfbW6\x84{\x8fn\x1e\x80\x10\x1busername=1234567. You need admin role.'
 
 It is not explained, but what is happening here is really cool. If an application is decrypting some part of the encrypted value and displaying it, and you want to know some OTHER part of the encrypted value, plug the block+previous block in where the stuff is being displayed from. In this case, he wanted to know what the first 16 bytes of ciphertext were so he used IV+cipher[:16]. What happens here is on decryption, the PT is xored with the previous block of CT, so the IV gets jumbled on decryption but the cipher[:16] block is decrypted correctly.
