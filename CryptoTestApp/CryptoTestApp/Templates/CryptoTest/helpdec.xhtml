@@ -1,0 +1,17 @@
+<html>
+	<body>
+		This is the decryption function, all parameters are passed in the query string<br/>
+		<h1>Required Parameters</h1><br/>
+		<b>data</b> - ASCII data to decrypt<br/>
+		<br/><h1>Optional Parameters</h1><br/>
+		<b>mode</b> - ECB, CBC, or CTR default ECB. The CTR implementation uses the IV as the start value for the counter and counts up. It also uses padding which is atypical of CTR.<br/>
+		<b>IV</b> - The initialization vector to use with CBC mode. Can be 'random' for a server generated random IV, 'static' or unspecified for the default static IV or specified as 16 bytes of ASCII HEX<br/>
+		<b>secretKey</b> - The 16byte ASCII HEX secret key, if unspecified default key will be used<br/>
+		<br/>
+		<h1>Example</h1>
+		<br>Encrypt:</b><br/>
+		http://localhost:8000/encrypt?data=helloworld&mode=CBC&IV=11111111111111111111111111111111&secretKey=22222222222222222222222222222222
+		<br>Decrypt:</b><br/>
+		http://localhost:8000/decrypt?data=e9fd044d36466990a9e49ef162af365c&mode=CBC&IV=11111111111111111111111111111111&secretKey=22222222222222222222222222222222
+	</body>
+</html>
