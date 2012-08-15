@@ -11,7 +11,7 @@ A: Is the output always a multiple of common block sizes (usually 128bits = 16 b
    
 Does pushing the input length over the block size cause another block to be added to the output?
 
-==Q: Is it ECB Mode (Insecure, You Win, Grab a beer)?==
+==Q: Is it ECB Mode (Insecure, You Win)?==
 A: Give a long, repeated input eg: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 This should yield 3 repeated blocks in the ciphertext if it is AES ECB 
 Another test if limited input space availble - do small PT changes cause single block CT changes?
@@ -21,7 +21,7 @@ If it is ECB, we can attack it in multiple ways
 ===Attack - Block Shuffling===
 1) ECB blocks can be shuffled and substituted to modify/tamper with the ciphertext
 
-===Attack - Decryption (Chosen Boundary Attack - Also works on CBC with static IV)===
+===Attack - Chosen Boundary Attack - Also works on CBC with static IV===
 http://erlend.oftedal.no/blog/beast/
 1) Find out about how many bytes precede our input in the CT - look for where the repeated blocks start
 2) Manipulate input so that the LAST block of our repeated input lines up with the block boundary. Do this by starting with large input and removing characters until you LOSE a repeated block. Then REMOVE the last character (byte) from the input so that the first byte of ciphertext is picked up within our last block eg:
