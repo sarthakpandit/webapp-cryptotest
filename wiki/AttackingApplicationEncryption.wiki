@@ -8,10 +8,12 @@ Tom Ptacek - http://vimeo.com/41116595
 
 ==Identify the cipher and look for attacks on the mode of encryption:==
 
-==Q: Is it a block Cipher?==
-A: Is the output always a multiple of common block sizes (usually 128bits = 16 bytes)
+==Q: Is it a block Cipher or Stream cipher?==
+A: Is the output always a multiple of common block sizes (usually 128bits = 16 bytes)? 
    
 Does pushing the input length over the block size cause another block to be added to the output?
+
+If neither are these are true, it's probably a stream cipher or block cipher being used in CTR or some other stream mode.
 
 ==Q: Is it ECB Mode (Insecure, You Win)?==
 A: Give a long, repeated input eg: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
