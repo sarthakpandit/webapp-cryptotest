@@ -120,7 +120,8 @@ http://namnham.blogspot.com/2010/03/codegate-2010-ctf-challenge-8-cbc-mode.html
 It is not explained, but what is happening here is really cool. If an application is decrypting some part of the encrypted value and displaying it, and you want to know some OTHER part of the encrypted value, plug the block+previous block in where the stuff is being displayed from. In this case, he wanted to know what the first 16 bytes of ciphertext were so he used IV+cipher[:16]. What happens here is on decryption, the PT is xored with the previous block of CT, so the IV gets jumbled on decryption but the cipher[:16] block is decrypted correctly.
 
 
-Hashes:
+==Hashes:==
+
 Q: Does the application validate messages based on the hash of the message with a secret key? This is not a valid way to use CURRENT hashing algorithms (MD5, SHA1, SHA256) but some applications do it anyways.
 
 E.G. Suppose X is a secret and M is the message, h(X | M) is used to validate M comes from a trusted source. We can modify M (lengthen it) to M’ and compute h(X | M’) without knowing X because of how current hash functions work. This attack is somewhat unlikely to see in an app but worth knowing it is 100% practical and exists.
