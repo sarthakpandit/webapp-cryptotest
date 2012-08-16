@@ -55,7 +55,9 @@ def findMinIdx(arr):
 '''
 Perform the XOR analysis on the array of bytes.
 They should have been encrypted with the same byte of keystream and be
-suspected to contain mostly letters from english text
+suspected to contain mostly letters from english text, any non alpha characters are 
+effecively ignored in the analysis, we will still decrypt them but they don't factor into
+the frequency analysis
 '''
 '''
 E.G.
