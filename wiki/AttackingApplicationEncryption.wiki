@@ -88,7 +88,8 @@ Some of these conditions may be able to be induced (i.e. Counter wrapping or inf
 
 4) Try XOR'ing key with messages from a different location in the app... Any ASCII you find, if you can PREDICT more PT, you can get more keystream. EG if we find “rsonal Inf”, we can try to guess "Personal Information" as the PT, which gives us 10 more bytes of keystream if correct! Go back to step 2 and get more key material
 
-===Attack - Repeated key attack (NO KNOWN PLAINTEXT) (RC4 or AES CTR)===
+===Attack - Repeated keystream attack (NO KNOWN PLAINTEXT) (RC4 or AES CTR)===
+http://en.wikipedia.org/wiki/Kasiski_examination
 
 If you have NO knowledge on what the original plaintext was:
 		
