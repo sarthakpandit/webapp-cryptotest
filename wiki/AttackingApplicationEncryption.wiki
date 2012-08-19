@@ -117,6 +117,8 @@ If you have NO knowledge on what the original plaintext was but you have a bunch
 Take all bytes that are suspected to have been encrypted with the same part of the keystream. For example, if you were able to fix the nonce or suspect it is fixed, take the ith byte of each message.
 
 If the nonce is not fixed but you suspect CTR repetition, look for repeated strings in the CT (use a script, read the article at the top of this attack section). Use the distance between repeated strings to estimate where the CTR wraps. This tells you where the keystream starts to repeat. Knowing this, you can collect bytes encrypted with the same keystream.
+
+If the NONCE is not fixed and there doesn't seem to be any repeated strings in any of the messages you have, try concatenating all of the messages into a single, long string and looking for repetitions in that. This will allow you to detect any NONCE or CTR repetition.
     
 Brute force the corresponding key byte by checking which value for the key byte produces the most common characters according to the characte frequency you expect (e.g. English has the highest frequency letter as ‘e’, so look for the most ‘e’s if you think the PT was English). Again this should be scripted and you can use more complex frequency analysis.
  
