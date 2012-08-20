@@ -143,18 +143,18 @@ http://blog.gdssecurity.com/labs/2010/9/14/automated-padding-oracle-attacks-with
 
 A CBC implementation is vulnerable to padding oracle attacks under the following conditions:
 
-1) When valid CT is submitted to the oracle you get a distinguishable response
+1) When valid CT is submitted to the application and it decrypts to valid data you get a distinguishable response (eg: 200 OK)
 
-2) When invalid CT is submitted but the padding is correct you get a distinguishable response
+2) When CT is submitted that decrypts to invalid data but has valid padding you get a distinguishable response (eg: 200 OK with a custom error or something)
 
-3) When invalid CT is submitted but the padding is incorrect you get a distinguishable response
+3) When invalid CT is submitted and the padding is incorrect you get a distinguishable response (eg: 500 Error due to crypto libraries crapping out on the backend)
 
-An example of how this can be satisfied is (1) giving the 200 OK response and fulfilling a request, (2) gives an application level error because the decrypted data is invalid in the application context, (3) gives a server error (exception is thrown when the decryption fails). As long as errors (2) and (3) are different, we can use a padding oracle attack to decrypt the ciphertext.
+An example of how this can be satisfied is (1) giving the 200 OK response and fulfilling a request, (2) gives an application level error because the decrypted data is invalid in the application context, (3) gives a server error (exception is thrown when the decryption fails). As long as errors (2) and (3) are different, we can use a padding oracle attack to decrypt the ciphertext that is being submitted to the application.
 
 ===Attack: Static or repeated IV===
 Vulnerable to the chosen boundary attack described for ECB.
 
-===Attack: Bitflipping===
+===Attack: Bitflipping and CBC Block Shuffling===
 
 http://namnham.blogspot.com/2010/03/codegate-2010-ctf-challenge-8-cbc-mode.html
 
