@@ -139,7 +139,7 @@ A: Blocks don't repeat, small PT changes cause full or large CT changes
 
 ===Attack: Padding Oracle Attack (e.g. PadBuster/IIS Vuln)===
 
-http://www.limited-entropy.com/padding-oracle-attacks
+http://blog.gdssecurity.com/labs/2010/9/14/automated-padding-oracle-attacks-with-padbuster.html
 
 A CBC implementation is vulnerable to padding oracle attacks under the following conditions:
 
