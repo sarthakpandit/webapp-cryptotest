@@ -175,6 +175,12 @@ It is not explained, but what is happening here is really cool. If an applicatio
 
 ==Hashes:==
 
-Q: Does the application validate messages based on the hash of the message with a secret key? This is not a valid way to use CURRENT hashing algorithms (MD5, SHA1, SHA256) but some applications do it anyways.
+Q: Does the application validate messages based on the hash of the message with a secret key? This is not a valid way to use CURRENT hashing algorithms (MD5, SHA1, SHA256) but some applications do it anyways (Flikr compromise and Stripe CTF).
 
-E.G. Suppose X is a secret and M is the message, h(X | M) is used to validate M comes from a trusted source. We can modify M (lengthen it) to M’ and compute h(X | M’) without knowing X because of how current hash functions work. This attack is somewhat unlikely to see in an app but worth knowing it is 100% practical and exists.
+E.G. Suppose X is a secret and M is the message, h(X | M) is used to validate M comes from a trusted source. We can modify M (lengthen it) to M’ and compute h(X | M’) without knowing X because of how current hash functions work.
+
+h(X | M) is actually an intermediate value when computing h(X | M'), so we seed the hash function with h(X | M) which is known, then we compute the hash for our extension. The trick is to pad the extension message at the beginning so that our entire extension falls into a new block AND doesn't modify anything in the previous block. To do this, we prepend out extension with the padding the hash algorithm uses. This has the form:
+
+0x800000000000....xxxxxxxx
+
+Where xxxxxxxx is the number of bits of unpadded data in the block.
