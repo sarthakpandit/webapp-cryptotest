@@ -175,7 +175,7 @@ It is not explained, but what is happening here is really cool. If an applicatio
 
 ==Hashes:==
 
-Q: Does the application validate messages based on the hash of the message with a secret key? This is not a valid way to use CURRENT hashing algorithms (MD5, SHA1, SHA256) but some applications do it anyways (Flikr compromise and Stripe CTF).
+Q: Does the application validate messages based on the hash of the message with a secret key? This is not a valid way to use CURRENT hashing algorithms (MD5, SHA1, SHA256) but some applications do it anyways (Flikr compromise and Stripe CTF). -- New tool and article by skull security on this! http://www.skullsecurity.org/blog/2012/everything-you-need-to-know-about-hash-length-extension-attacks
 
 E.G. Suppose X is a secret and M is the message, h(X | M) is used to validate M comes from a trusted source. We can modify M (lengthen it) to M’ and compute h(X | M’) without knowing X because of how current hash functions work.
 
