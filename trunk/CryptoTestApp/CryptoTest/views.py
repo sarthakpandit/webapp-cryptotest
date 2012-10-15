@@ -28,12 +28,13 @@ def encryptData(request):
         
     #Can be static, random, or given as the param in HEX
     if 'IV' in params:
-        IV = binascii.unhexlify(params['IV'])
+        IV = params['IV']
         if (IV == 'static'):
             IV = defaultIv
         elif (IV == 'random'):
             IV = getRandomIv() 
     else:
+        IV = binascii.unhexlify(params['IV'])
         IV = defaultIv
         
     #Optional AES key can be specified in HEX
@@ -48,7 +49,13 @@ def encryptData(request):
     if 'post' in params:
         data = data+params['post']
         
-    return HttpResponse(encrypt(data,method,IV,secretKey))
+    #Specify a number for the CTR counter to wrap at
+    if 'wrap' in params:
+        wrap = int(params['wrap'])
+    else:
+        wrap = None
+       
+    return HttpResponse(encrypt(data,method,IV,secretKey,wrap)+"\n")
 
 def decryptData(request):
     params = request.GET
@@ -83,4 +90,10 @@ def decryptData(request):
     else:
         secretKey = defaultKey
   
-    return HttpResponse(decrypt(data,method,IV,secretKey))
+    #Specify a number for the CTR counter to wrap at
+    if 'wrap' in params:
+        wrap = int(params['wrap'])
+    else:
+        wrap = None
+  
+    return HttpResponse(decrypt(data,method,IV,secretKey,wrap)+"\n")
